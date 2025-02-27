@@ -1,6 +1,6 @@
 import { InjectQueue, Processor } from '@nestjs/bull';
 import { BackoffService } from './backoff.service';
-import { JobQueue } from '../pull-mq.abstract';
+import { JobQueue } from '../pull-mq.producer';
 import { PullMQConsumer } from '../pull-mq.consumer';
 import { Job, Queue } from 'bull';
 import { logger } from 'src/logger';

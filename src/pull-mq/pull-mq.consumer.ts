@@ -1,6 +1,6 @@
-import { Job, Queue } from 'bull';
+import { Job, JobStatus, Queue } from 'bull';
 import { OnQueueError, Process } from '@nestjs/bull';
-import { JobQueue, PullMQProducer } from './pull-mq.abstract';
+import { JobQueue, PullMQProducer } from './pull-mq.producer';
 import { logger } from 'src/logger';
 
 export abstract class PullMQConsumer<
@@ -71,5 +71,9 @@ export abstract class PullMQConsumer<
   @OnQueueError()
   handleError(error: Error): void {
     logger.error(`[${this.getQueueName()}]`, error.message, error.stack);
+  }
+
+  async getJobs(type: JobStatus[]): Promise<Job<T>[]> {
+    return await this.queue.getJobs(type);
   }
 }

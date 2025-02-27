@@ -33,4 +33,8 @@ export abstract class BaseRepository<T extends Model> {
     const rows = await this.model.destroy(options);
     return rows > 0;
   }
+
+  async bulkCreate(data: Partial<T>[]): Promise<void> {
+    await this.model.bulkCreate(data as any);
+  }
 }

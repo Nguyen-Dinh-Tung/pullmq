@@ -1,8 +1,8 @@
 import { Op } from 'sequelize';
-import { UsersRepository } from './database/models/users.repository';
 import { BackoffProducer } from './pull-mq/backoff/backoff.producer';
 import { Injectable } from '@nestjs/common';
 import { logger } from './logger';
+import { UsersRepository } from './database/repositories/users.repository';
 
 @Injectable()
 export class AppService {

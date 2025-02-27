@@ -2,7 +2,7 @@ import { InjectQueue } from '@nestjs/bull';
 import { BackoffProducerName, IBackOff } from './backoff.consumer';
 import { Queue } from 'bull';
 import { Injectable } from '@nestjs/common';
-import { PullMQProducer } from '../pull-mq.abstract';
+import { PullMQProducer } from '../pull-mq.producer';
 
 @Injectable()
 export class BackoffProducer extends PullMQProducer<IBackOff> {

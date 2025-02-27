@@ -9,6 +9,8 @@ export interface JobQueue {
   retries: number;
 }
 
+export const deadLetterQueueName = 'dead-letter-queue';
+
 export abstract class PullMQProducer<T extends JobQueue>
   implements IPullMqConfig<T>
 {
@@ -21,7 +23,7 @@ export abstract class PullMQProducer<T extends JobQueue>
   protected backoff: number = 1000;
   protected backoffType: BackoffPullMQ = 'fixed';
   protected maxBackoff = 60 * this.backoff;
-  protected deadLetterQueue: string = 'dead-letter-queue';
+  protected deadLetterQueue: string = deadLetterQueueName;
   protected concurrency: number = 1;
 
   constructor(
