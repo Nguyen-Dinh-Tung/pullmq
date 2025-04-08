@@ -1,8 +1,9 @@
 import Redis from 'ioredis';
+import ENV from 'src/env/env.base';
 
 export const redis = new Redis({
-  port: 6379,
-  host: '127.0.0.1',
+  port: +ENV.redisPort,
+  host: ENV.redisHost,
   connectTimeout: 10000,
 });
 

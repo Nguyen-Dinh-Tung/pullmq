@@ -24,6 +24,8 @@ const ENV = {
   isStaging: getOsEnv('NODE_ENV') === 'staging',
   jwtSecret: getOsEnv('JWT_SECRET'),
   jwtExpiresIn: getOsEnv('JWT_EXPIRES_IN'),
+  redisHost: getOsEnv('REDIS_HOST'),
+  redisPort: getOsEnv('REDIS_PORT'),
 };
 
 export default ENV;

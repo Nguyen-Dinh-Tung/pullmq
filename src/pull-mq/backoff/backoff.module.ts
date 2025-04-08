@@ -3,14 +3,15 @@ import { BullModule } from '@nestjs/bull';
 import { forwardRef, Module } from '@nestjs/common';
 import { BackOffConsumer, BackoffProducerName } from './backoff.consumer';
 import { BackoffService } from './backoff.service';
+import ENV from 'src/env/env.base';
 
 @Module({
   imports: [
     BullModule.registerQueue({
       name: BackoffProducerName,
       redis: {
-        port: 6379,
-        host: '127.0.0.1',
+        host: ENV.redisHost,
+        port: +ENV.redisPort,
       },
     }),
     forwardRef(() => BackOffModule),

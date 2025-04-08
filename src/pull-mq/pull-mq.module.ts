@@ -3,20 +3,21 @@ import { Module } from '@nestjs/common';
 import { BackOffModule } from './backoff/backoff.module';
 import { DeadLetterConsumer } from './dead-letter.consumer';
 import { deadLetterQueueName } from './pull-mq.producer';
+import ENV from 'src/env/env.base';
 
 @Module({
   imports: [
     BullModule.forRoot({
       redis: {
-        host: '127.0.0.1',
-        port: 6379,
+        host: ENV.redisHost,
+        port: +ENV.redisPort,
       },
     }),
     BullModule.registerQueue({
       name: deadLetterQueueName,
       redis: {
-        host: '127.0.0.1',
-        port: 6379,
+        host: ENV.redisHost,
+        port: +ENV.redisPort,
       },
     }),
     BackOffModule,
