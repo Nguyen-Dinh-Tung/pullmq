@@ -13,7 +13,8 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      name: DataType.STRING,
+      email: DataType.STRING,
+      password: DataType.STRING,
       created_at: DataType.DATE,
       updated_at: DataType.DATE,
       deleted_at: {

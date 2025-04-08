@@ -22,6 +22,8 @@ const ENV = {
   isDevelopment: getOsEnv('NODE_ENV') === 'development',
   isProduction: getOsEnv('NODE_ENV') === 'production',
   isStaging: getOsEnv('NODE_ENV') === 'staging',
+  jwtSecret: getOsEnv('JWT_SECRET'),
+  jwtExpiresIn: getOsEnv('JWT_EXPIRES_IN'),
 };
 
 export default ENV;
