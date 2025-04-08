@@ -8,6 +8,16 @@ export class UsersModel extends BaseModel {
   @Column({
     type: DataType.STRING,
   })
-  name: string;
+  email: string;
+
+  @Column({
+    type: DataType.STRING,
+  })
+  password: string;
+
+  @Column({
+    type: DataType.STRING,
+  })
+  roles: string;
 }
 export default UsersModel;

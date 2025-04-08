@@ -55,3 +55,13 @@ export function Paginate<T>() {
   }
   return Paginated;
 }
+
+interface IDetailResponse<T> {
+  data: T;
+}
+
+export class DetailResponse<T> implements IDetailResponse<T> {
+  constructor(public data: T) {
+    this.data = data;
+  }
+}

@@ -1,7 +1,7 @@
 import { IsEnum, IsOptional } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { OrderEnum } from 'src/enums/query.enum';
-import { PageRequest } from './paginations.dto';
+import { PageRequest } from './pagination.dto';
 
 export class QueryDto extends PageRequest {
   @IsOptional()
