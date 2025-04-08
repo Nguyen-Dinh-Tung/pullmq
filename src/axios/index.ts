@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import axios, { AxiosResponse, AxiosRequestConfig, AxiosInstance } from 'axios';
 import { logger } from 'src/logger';
-import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
 @Injectable()
 export class AxiosService {
   private readonly axiosInstance: AxiosInstance;
