@@ -11,6 +11,15 @@ const errorTransport = new winston.transports.DailyRotateFile({
   maxFiles: '30d',
   watchLog: true,
 });
+const warningTransport = new winston.transports.DailyRotateFile({
+  filename: 'src/logs/warning-%DATE%.log',
+  datePattern: 'YYYY-MM-DD',
+  level: 'warning',
+  zippedArchive: true,
+  maxSize: '20m',
+  maxFiles: '30d',
+  watchLog: true,
+});
 
 const winstonLog = winston.createLogger({
   level: 'info',
@@ -18,7 +27,7 @@ const winstonLog = winston.createLogger({
     winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     winston.format.json(),
   ),
-  transports: [errorTransport],
+  transports: [errorTransport, warningTransport],
 });
 
 if (process.env.NODE_ENV !== 'production') {
@@ -37,6 +46,9 @@ export const logger = {
     winstonLog.error(message, { stack, component });
   },
   info: (component: string, message: string) => l.log(message, component),
-  warn: (component: string, message: string) => l.warn(message, component),
+  warn: (component: string, message: string) => {
+    l.warn(message, component);
+    winstonLog.warn(message, component);
+  },
   debug: (component: string, message: string) => l.debug(message, component),
 };
