@@ -5,6 +5,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
 import { AllFilterException } from './exceptions/all-filter.exception';
 import { logger } from './logger';
+import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -22,6 +23,9 @@ async function bootstrap() {
   morgan.token('user', function (req: any) {
     return JSON.stringify(req?.headers?.user ?? '{}');
   });
+
+  app.use(bodyParser.json());
+
   app.use(
     morgan(
       ':remote-addr :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent" data::body - Query: :query - Params: :params - User: :user  :response-time ms',
