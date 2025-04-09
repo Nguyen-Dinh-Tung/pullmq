@@ -15,6 +15,7 @@ module.exports = {
       },
       email: DataType.STRING,
       password: DataType.STRING,
+      roles: DataType.STRING,
       created_at: DataType.DATE,
       updated_at: DataType.DATE,
       deleted_at: {
@@ -25,6 +26,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    return queryInterface.dropTable('user');
+    return queryInterface.dropTable('users');
   },
 };

@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { PullMqModule } from './pull-mq/pull-mq.module';
 import { DatabaseModule } from './database/database.module';
 import { DeadLetterModule } from './jobs/dead-letter/dead-letter.module';
-import { UsersRepository } from './database/repositories/users.repository';
 import { UsersModule } from './modules/users/users/users.module';
 import { AuthModule } from './modules/users/auth/auth.module';
 
@@ -17,6 +16,6 @@ import { AuthModule } from './modules/users/auth/auth.module';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, UsersRepository],
+  providers: [AppService],
 })
 export class AppModule {}

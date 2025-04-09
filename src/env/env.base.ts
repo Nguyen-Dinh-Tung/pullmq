@@ -26,6 +26,12 @@ const ENV = {
   jwtExpiresIn: getOsEnv('JWT_EXPIRES_IN'),
   redisHost: getOsEnv('REDIS_HOST'),
   redisPort: getOsEnv('REDIS_PORT'),
+  dbName: getOsEnv('DB_NAME'),
+  dbUsername: getOsEnv('DB_USER'),
+  dbPass: getOsEnv('DB_PASS'),
+  dbHost: getOsEnv('DB_HOST'),
+  dbPort: getOsEnv('DB_PORT'),
+  dialect: getOsEnv('DIALECT'),
 };
 
 export default ENV;
