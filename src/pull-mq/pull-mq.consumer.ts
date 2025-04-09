@@ -13,6 +13,12 @@ export abstract class PullMQConsumer<
         name: string,
     ) {
         super(queue, name);
+        this.queue.on('job_completed', (data) => {
+            logger.info(`[PULL-MQ-SUCCESS]`, data.toString());
+        });
+        this.queue.on('error', (error) => {
+            logger.error(`[PULL-MQ] `, error?.message, error?.stack);
+        });
     }
 
     registerHandler(
@@ -38,12 +44,6 @@ export abstract class PullMQConsumer<
                 });
                 await job.remove();
             }
-            this.queue.on('job_completed', (data) => {
-                logger.info(`[PULL-MQ-SUCCESS]`, data.toString());
-            });
-            this.queue.on('error', (error) => {
-                logger.error(`[PULL-MQ] `, error?.message, error?.stack);
-            });
 
             return true;
         } catch (error) {
