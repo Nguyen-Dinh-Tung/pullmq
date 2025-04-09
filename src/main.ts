@@ -4,6 +4,7 @@ import * as morgan from 'morgan';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
 import { AllFilterException } from './exceptions/all-filter.exception';
+import { logger } from './logger';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -12,13 +13,26 @@ async function bootstrap() {
   morgan.token('body', function (req: any) {
     return JSON.stringify(req?.body ?? '{}');
   });
-
+  morgan.token('query', function (req: any) {
+    return JSON.stringify(req?.query ?? '{}');
+  });
+  morgan.token('params', function (req: any) {
+    return JSON.stringify(req?.params ?? '{}');
+  });
+  morgan.token('user', function (req: any) {
+    return JSON.stringify(req?.headers?.user ?? '{}');
+  });
   app.use(
     morgan(
-      ':remote-addr :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent" data::body :response-time ms',
+      ':remote-addr :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent" data::body - Query: :query - Params: :params - User: :user  :response-time ms',
       {
         skip: function (req, res) {
           return res.statusCode < 400;
+        },
+        stream: {
+          write: (message: string) => {
+            logger.info('HTTP', message.trim());
+          },
         },
       },
     ),
