@@ -7,31 +7,33 @@ import UsersModel from 'src/database/models/users.model';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private jwtService: JwtService,
-    private readonly userService: UsersService,
-  ) {}
+    constructor(
+        private jwtService: JwtService,
+        private readonly userService: UsersService,
+    ) {}
 
-  async login(userInformation: LoginDto): Promise<{ accessToken: string }> {
-    const user = await this.validateUser(userInformation);
-    if (!user) {
-      throw new AppHttpBadRequest('Invalid credentials');
+    async login(userInformation: LoginDto): Promise<{ accessToken: string }> {
+        const user = await this.validateUser(userInformation);
+        if (!user) {
+            throw new AppHttpBadRequest('Invalid credentials');
+        }
+
+        const payload = { email: user.email, sub: user.id, roles: user.roles };
+
+        return {
+            accessToken: this.jwtService.sign(payload),
+        };
     }
 
-    const payload = { email: user.email, sub: user.id, roles: user.roles };
+    async validateUser(userInformation: LoginDto): Promise<UsersModel> {
+        const user = await this.userService.getUserByEmail(
+            userInformation?.email,
+        );
 
-    return {
-      accessToken: this.jwtService.sign(payload),
-    };
-  }
+        if (user && user.password === userInformation.password) {
+            return user;
+        }
 
-  async validateUser(userInformation: LoginDto): Promise<UsersModel> {
-    const user = await this.userService.getUserByEmail(userInformation?.email);
-
-    if (user && user.password === userInformation.password) {
-      return user;
+        return null;
     }
-
-    return null;
-  }
 }

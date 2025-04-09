@@ -6,11 +6,11 @@ import { PullMQProducer } from '../pull-mq.producer';
 
 @Injectable()
 export class BackoffProducer extends PullMQProducer<IBackOff> {
-  constructor(
-    @InjectQueue(BackoffProducerName)
-    protected readonly queue: Queue,
-  ) {
-    super(queue, BackoffProducerName);
-    this.queueName = BackoffProducerName;
-  }
+    constructor(
+        @InjectQueue(BackoffProducerName)
+        protected readonly queue: Queue,
+    ) {
+        super(queue, BackoffProducerName);
+        this.queueName = BackoffProducerName;
+    }
 }

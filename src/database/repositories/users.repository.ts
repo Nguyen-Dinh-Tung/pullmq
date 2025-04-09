@@ -5,7 +5,7 @@ import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class UsersRepository extends BaseRepository<UsersModel> {
-  constructor(@InjectModel(UsersModel) model: typeof UsersModel) {
-    super(model);
-  }
+    constructor(@InjectModel(UsersModel) model: typeof UsersModel) {
+        super(model);
+    }
 }

@@ -6,15 +6,15 @@ import { AuthController } from './auth.controller';
 import ENV from 'src/env/env.base';
 
 @Module({
-  imports: [
-    JwtModule.register({
-      secret: ENV.jwtSecret || 'super-secret-key',
-      signOptions: { expiresIn: ENV.jwtExpiresIn },
-    }),
-    forwardRef(() => UsersModule),
-  ],
-  controllers: [AuthController],
-  providers: [AuthService],
-  exports: [JwtModule],
+    imports: [
+        JwtModule.register({
+            secret: ENV.jwtSecret || 'super-secret-key',
+            signOptions: { expiresIn: ENV.jwtExpiresIn },
+        }),
+        forwardRef(() => UsersModule),
+    ],
+    controllers: [AuthController],
+    providers: [AuthService],
+    exports: [JwtModule],
 })
 export class AuthModule {}

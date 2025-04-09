@@ -6,17 +6,17 @@ import { BackoffService } from './backoff.service';
 import ENV from 'src/env/env.base';
 
 @Module({
-  imports: [
-    BullModule.registerQueue({
-      name: BackoffProducerName,
-      redis: {
-        host: ENV.redisHost,
-        port: +ENV.redisPort,
-      },
-    }),
-    forwardRef(() => BackOffModule),
-  ],
-  providers: [BackOffConsumer, BackoffProducer, BackoffService],
-  exports: [BackOffConsumer, BackoffProducer, BackoffService],
+    imports: [
+        BullModule.registerQueue({
+            name: BackoffProducerName,
+            redis: {
+                host: ENV.redisHost,
+                port: +ENV.redisPort,
+            },
+        }),
+        forwardRef(() => BackOffModule),
+    ],
+    providers: [BackOffConsumer, BackoffProducer, BackoffService],
+    exports: [BackOffConsumer, BackoffProducer, BackoffService],
 })
 export class BackOffModule {}

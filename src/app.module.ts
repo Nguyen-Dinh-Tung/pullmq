@@ -8,14 +8,14 @@ import { UsersModule } from './modules/users/users/users.module';
 import { AuthModule } from './modules/users/auth/auth.module';
 
 @Module({
-  imports: [
-    PullMqModule,
-    DatabaseModule,
-    DeadLetterModule,
-    UsersModule,
-    AuthModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [
+        PullMqModule,
+        DatabaseModule,
+        DeadLetterModule,
+        UsersModule,
+        AuthModule,
+    ],
+    controllers: [AppController],
+    providers: [AppService],
 })
 export class AppModule {}

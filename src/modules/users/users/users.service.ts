@@ -5,13 +5,13 @@ import { AppHttpBadRequest } from 'src/exceptions/app-http.exception';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly usersRepository: UsersRepository) {}
+    constructor(private readonly usersRepository: UsersRepository) {}
 
-  async getUserByEmail(email: string): Promise<UsersModel> {
-    const user = await this.usersRepository.findOne({ where: { email } });
-    if (!user) {
-      throw new AppHttpBadRequest('User not found');
+    async getUserByEmail(email: string): Promise<UsersModel> {
+        const user = await this.usersRepository.findOne({ where: { email } });
+        if (!user) {
+            throw new AppHttpBadRequest('User not found');
+        }
+        return user;
     }
-    return user;
-  }
 }

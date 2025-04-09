@@ -5,8 +5,8 @@ import { DeadLetterRepository } from 'src/database/repositories/dead-letter.repo
 import { PullMqModule } from 'src/pull-mq/pull-mq.module';
 
 @Module({
-  imports: [ScheduleModule.forRoot(), PullMqModule],
-  providers: [DeadLetterRepository, DeadLetterService],
-  exports: [DeadLetterRepository, DeadLetterService],
+    imports: [ScheduleModule.forRoot(), PullMqModule],
+    providers: [DeadLetterRepository, DeadLetterService],
+    exports: [DeadLetterRepository, DeadLetterService],
 })
 export class DeadLetterModule {}

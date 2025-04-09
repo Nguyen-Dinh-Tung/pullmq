@@ -58,6 +58,25 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## database
+
+```
+# reset database
+$ npm run db:reset
+
+# seeders database
+$ npm run db:seed
+
+
+
+$ npm run db:seed-generate
+$ npm run db:seed-undo
+$ npm run db:seed-reset
+$ npm run db:migrate
+$ npm run db:migrate-make
+$ npm run db:rollback
+```
+
 ## Resources
 
 Check out a few resources that may come in handy when working with NestJS:

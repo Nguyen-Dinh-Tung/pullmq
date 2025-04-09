@@ -4,10 +4,10 @@ import { DeadLetterService } from './dead-letter.service';
 
 @Injectable()
 export class DeadLetterSchedule {
-  constructor(private deadLetterService: DeadLetterService) {}
+    constructor(private deadLetterService: DeadLetterService) {}
 
-  @Cron('0 0 0 * * *')
-  async handleDeadLetter() {
-    await this.deadLetterService.handle();
-  }
+    @Cron('0 0 0 * * *')
+    async handleDeadLetter() {
+        await this.deadLetterService.handle();
+    }
 }
