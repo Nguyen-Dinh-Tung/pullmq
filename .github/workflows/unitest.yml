@@ -35,6 +35,16 @@ jobs:
                     --health-retries=3
         env:
             NODE_ENV: development
+            JWT_SECRET: secret
+            WT_EXPIRES_IN: 1d
+            DB_HOST: localhost
+            DB_PORT: 3306
+            DB_NAME: pull
+            DB_USER: dev
+            DB_PASS: pass
+            DIALECT: mysql
+            REDIS_HOST: localhost
+            REDIS_PORT: 6379
 
         strategy:
             matrix:
@@ -54,17 +64,6 @@ jobs:
               run: yarn install --frozen-lockfile
 
             - name: Run tests
-              env:
-                  JWT_SECRET: secret
-                  WT_EXPIRES_IN: 1d
-                  DB_HOST: localhost
-                  DB_PORT: 3306
-                  DB_NAME: pull
-                  DB_USER: dev
-                  DB_PASS: pass
-                  DIALECT: mysql
-                  REDIS_HOST: localhost
-                  REDIS_PORT: 6379
               run: yarn test:cov
 
             - name: Build project
