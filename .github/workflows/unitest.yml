@@ -55,10 +55,15 @@ jobs:
 
             - name: Run tests
               env:
-                  NODE_ENV: test
+                  DB_HOST: localhost
+                  DB_PORT: 3306
+                  DB_NAME: pull
+                  DB_USER: dev
+                  DB_PASS: pass
+                  DIALECT: mysql
+                  REDIS_HOST: localhost
+                  REDIS_PORT: 6379
               run: yarn test:cov
 
             - name: Build project
-              env:
-                  NODE_ENV: development
               run: yarn build
