@@ -14,9 +14,9 @@ jobs:
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ sshlogin.vpbip }}
-          username: ${{ sshlogin.VPSUSER }}
-          key: ${{ sshlogin.SSHLOGIN }}
+          host: ${{ ssh.vpbip }}
+          username: ${{ ssh.VPSUSER }}
+          key: ${{ ssh.SSHLOGIN }}
           script: |
             cd /var/www/pullmq
             git pull origin master
