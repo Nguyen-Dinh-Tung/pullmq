@@ -1,0 +1,24 @@
+name: Deploy to Ubuntu Server
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ sshlogin.vpbip }}
+          username: ${{ sshlogin.VPSUSER }}
+          key: ${{ sshlogin.SSHLOGIN }}
+          script: |
+            cd /var/www/pullmq
+            git pull origin master
+            docker compose down --rmi all -v
+            docker compose up -d
