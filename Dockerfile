@@ -24,11 +24,7 @@ COPY --from=builder /app/package.json ./
 
 COPY --from=builder /app/yarn.lock ./
 
-RUN yarn --network-timeout 100000
-
-ENV HUSKY_SKIP_INSTALL=1
-
-RUN yarn install --frozen-lockfile --production
+COPY --from=builder /app/node_modules ./node_modules
 
 COPY --from=builder /app/dist ./dist
 
