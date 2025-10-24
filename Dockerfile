@@ -1,25 +1,30 @@
-FROM node:20-alpine AS builder  
+FROM node:20-alpine AS base 
 
 WORKDIR /app 
 
-COPY package.json ./
+FROM base AS builder 
 
-COPY yarn.lock ./ 
-
-RUN yarn --network-timeout 100000
-
-ENV HUSKY_SKIP_INSTALL=1
+COPY . . 
 
 RUN yarn install --frozen-lockfile 
 
-COPY . .
-
 RUN yarn build 
+
+FROM base AS runner 
+
+WORKDIR /app 
+
+COPY --from=builder /app/yarn.lock ./yarn.lock 
+COPY --from=builder /app/package.json ./package.json 
+
+RUN yarn install --frozen-lockfile --production && yarn cache clean
+
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/entrypoint.sh ./entrypoint.sh
+
 
 RUN chmod +x entrypoint.sh
 
-ENTRYPOINT ["sh" ,"entrypoint.sh"]
+ENTRYPOINT ["sh" , "entrypoint.sh"]
 
-EXPOSE 3001
-
-CMD ["node", "dist/src/main.js"]
+CMD ["node" ,"dist/src/main.js"]

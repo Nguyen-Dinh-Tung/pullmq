@@ -3,8 +3,6 @@ services:
         build: .
         ports:
             - '3001:3001'
-        env_file:
-            - .env.development
         networks:
             - app
         depends_on:
@@ -12,27 +10,34 @@ services:
                 condition: service_healthy
             redis:
                 condition: service_started
+        env_file:
+            - .env.development
 
     mysql:
         image: mysql:8.0
+        ports:
+            - '3305:3306'
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: pull
             MYSQL_USER: dev
             MYSQL_PASSWORD: pass
-        ports:
-            - '3305:3306'
         volumes:
-            - db_data:/var/lib/mysql
+            - db:/var/lib/mysql
         healthcheck:
-            test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
-            interval: 30s
-            timeout: 20s
+            test:
+                [
+                    'CMD-SHELL',
+                    'mysqladmin ping -h localhost -u root --password=$MYSQL_ROOT_PASSWORD || exit 1',
+                ]
+            interval: 10s
+            timeout: 5s
             retries: 5
         networks:
             - app
+
     redis:
-        image: redis:7
+        image: redis:7.0
         ports:
             - '6378:6379'
         networks:
@@ -41,4 +46,4 @@ services:
 networks:
     app:
 volumes:
-    db_data:
+    db:
